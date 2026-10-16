@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Tooltip } from './Tooltip'
+import { Avatar, Badge, Button } from '@/components/primitives'
+import { EditIcon, TrashIcon } from '@/icons'
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Composites/Tooltip',
@@ -89,15 +91,66 @@ export const NoDelay: Story = {
   ),
 }
 
-export const AllPositions: Story = {
-  name: 'All Positions',
+export const AvatarTooltipCombination: Story = {
+  name: 'Combination: Avatar with Status Tooltip',
   render: () => (
-    <div className="grid grid-cols-2 gap-8 p-16">
-      {(['top', 'bottom', 'left', 'right'] as const).map((pos) => (
-        <Tooltip key={pos} content={`Position: ${pos}`} position={pos}>
-          <TriggerButton label={pos} />
-        </Tooltip>
-      ))}
+    <div className="flex items-center gap-6 p-8">
+      <Tooltip content="Sarah Connor (Online, Core Team Lead)" position="top">
+        <div className="inline-block cursor-pointer">
+          <Avatar name="Sarah Connor" status="online" size="lg" />
+        </div>
+      </Tooltip>
+      <Tooltip content="David Kim (Away for 20m)" position="top">
+        <div className="inline-block cursor-pointer">
+          <Avatar name="David Kim" status="away" size="lg" />
+        </div>
+      </Tooltip>
+      <Tooltip content="Elena Rostova (Busy in meetings)" position="top">
+        <div className="inline-block cursor-pointer">
+          <Avatar name="Elena Rostova" status="busy" size="lg" />
+        </div>
+      </Tooltip>
+    </div>
+  ),
+}
+
+export const BadgeTooltipCombination: Story = {
+  name: 'Combination: Badge with Explanatory Tooltip',
+  render: () => (
+    <div className="flex items-center gap-4 p-8">
+      <Tooltip content="Complies with strict WCAG 2.1 AA accessibility guidelines" position="top">
+        <span className="cursor-help">
+          <Badge variant="success" dot>WCAG AA</Badge>
+        </span>
+      </Tooltip>
+      <Tooltip content="Feature flag active for 10% canary traffic" position="top">
+        <span className="cursor-help">
+          <Badge variant="warning">Canary</Badge>
+        </span>
+      </Tooltip>
+      <Tooltip content="Strict TypeScript with zero any annotations" position="top">
+        <span className="cursor-help">
+          <Badge variant="primary">Type-safe</Badge>
+        </span>
+      </Tooltip>
+    </div>
+  ),
+}
+
+export const IconButtonTooltipCombination: Story = {
+  name: 'Combination: Action Button Tooltip',
+  render: () => (
+    <div className="flex items-center gap-3 p-8">
+      <Tooltip content="Edit component properties" position="top">
+        <Button variant="outline" size="sm" aria-label="Edit component">
+          <EditIcon className="w-4 h-4" />
+        </Button>
+      </Tooltip>
+      <Tooltip content="Permanently delete item" position="top">
+        <Button variant="danger" size="sm" aria-label="Delete item">
+          <TrashIcon className="w-4 h-4" />
+        </Button>
+      </Tooltip>
     </div>
   ),
 }

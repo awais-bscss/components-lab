@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Modal } from './Modal'
+import { Avatar, Badge, Button, Chip, Input, Text } from '@/components/primitives'
+import { Alert } from '../Alert/Alert'
 
 const meta: Meta<typeof Modal> = {
   title: 'Composites/Modal',
@@ -36,18 +38,25 @@ type Story = StoryObj<typeof Modal>
 
 interface ModalDemoProps extends Omit<Partial<React.ComponentProps<typeof Modal>>, 'children'> {
   children?: React.ReactNode
+  triggerLabel?: string
+  triggerVariant?: React.ComponentProps<typeof Button>['variant']
 }
 
-function ModalDemo({ children = 'Modal body content goes here.', ...props }: ModalDemoProps) {
+function ModalDemo({
+  children = 'Modal body content goes here.',
+  triggerLabel = 'Open Modal',
+  triggerVariant = 'primary',
+  ...props
+}: ModalDemoProps) {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <button
+      <Button
         onClick={() => setOpen(true)}
-        className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary-hover transition-colors cursor-pointer"
+        variant={triggerVariant}
       >
-        Open Modal
-      </button>
+        {triggerLabel}
+      </Button>
       <Modal open={open} onClose={() => setOpen(false)} {...props}>
         {children}
       </Modal>
@@ -68,15 +77,13 @@ export const WithFooter: Story = {
   render: () => (
     <ModalDemo
       title="Delete workspace"
+      triggerVariant="danger"
+      triggerLabel="Delete workspace"
       footer={
-        <>
-          <button className="px-3 py-1.5 text-xs rounded border border-border hover:bg-surface-muted transition-colors cursor-pointer">
-            Cancel
-          </button>
-          <button className="px-3 py-1.5 text-xs rounded bg-danger text-primary-foreground hover:bg-danger/90 transition-colors cursor-pointer">
-            Confirm delete
-          </button>
-        </>
+        <div className="flex justify-end gap-2 w-full">
+          <Button variant="outline" size="sm">Cancel</Button>
+          <Button variant="danger" size="sm">Confirm delete</Button>
+        </div>
       }
     >
       This will permanently delete the workspace and all its data. This action cannot be undone.
@@ -98,15 +105,76 @@ export const LargeSize: Story = {
   render: () => (
     <ModalDemo title="Edit profile" size="lg">
       <div className="flex flex-col gap-3">
-        <p className="text-sm text-muted-foreground">Update your display name and contact information.</p>
-        <input
-          className="h-9 w-full border border-border rounded-md px-3 text-sm bg-surface text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-          placeholder="Display name"
-        />
-        <input
-          className="h-9 w-full border border-border rounded-md px-3 text-sm bg-surface text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-          placeholder="Email address"
-        />
+        <Text variant="small" color="muted">Update your display name and contact information.</Text>
+        <Input label="Display name" placeholder="Display name" />
+        <Input label="Email address" placeholder="Email address" />
+      </div>
+    </ModalDemo>
+  ),
+}
+
+export const ProfileFormCombination: Story = {
+  name: 'Combination: User Edit Form',
+  render: () => (
+    <ModalDemo
+      title="Member Settings"
+      size="md"
+      triggerLabel="Edit Member"
+      footer={
+        <div className="flex justify-end gap-2 w-full">
+          <Button variant="outline" size="sm">Cancel</Button>
+          <Button variant="primary" size="sm">Save changes</Button>
+        </div>
+      }
+    >
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 p-3 bg-surface-muted rounded-lg border border-border">
+          <Avatar name="Sarah Connor" status="online" size="lg" />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold text-foreground">Sarah Connor</span>
+              <Badge variant="primary" size="sm">Team Lead</Badge>
+            </div>
+            <Text variant="small" color="muted">sarah.connor@example.com</Text>
+          </div>
+        </div>
+        <Input label="Full Name" defaultValue="Sarah Connor" />
+        <Input label="Role Title" defaultValue="Design Systems Engineer" />
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-foreground">Assigned Teams</label>
+          <div className="flex gap-1.5 flex-wrap">
+            <Chip variant="primary" selected>Design</Chip>
+            <Chip variant="default" selected>Engineering</Chip>
+            <Chip variant="default">Product</Chip>
+          </div>
+        </div>
+      </div>
+    </ModalDemo>
+  ),
+}
+
+export const DestructiveConfirmCombination: Story = {
+  name: 'Combination: Destructive Confirmation',
+  render: () => (
+    <ModalDemo
+      title="Revoke Access Token"
+      size="md"
+      triggerLabel="Revoke Token"
+      triggerVariant="danger"
+      footer={
+        <div className="flex justify-end gap-2 w-full">
+          <Button variant="outline" size="sm">Keep Token</Button>
+          <Button variant="danger" size="sm">Revoke Immediately</Button>
+        </div>
+      }
+    >
+      <div className="space-y-3">
+        <Alert variant="warning" title="Security Warning">
+          Any production integrations using this token will stop functioning immediately.
+        </Alert>
+        <Text variant="small" color="muted">
+          Token ID: <code className="px-1.5 py-0.5 rounded bg-surface-muted border border-border font-mono text-foreground">cl_tok_84920412</code>
+        </Text>
       </div>
     </ModalDemo>
   ),

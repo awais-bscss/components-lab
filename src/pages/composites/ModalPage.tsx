@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Modal, type ModalSize } from '@/components/composites'
-import { Button } from '@/components/primitives'
+import { Avatar, Badge, Button, Chip, Input, Text } from '@/components/primitives'
 import { PageHeader, Section } from '@/components/showcase'
 
 export function ModalPage() {
   const [open1, setOpen1] = useState(false)
   const [open2, setOpen2] = useState(false)
+  const [openForm, setOpenForm] = useState(false)
   const [activeSize, setActiveSize] = useState<ModalSize | null>(null)
 
   const sizeList: ModalSize[] = ['sm', 'md', 'lg', 'xl']
@@ -70,6 +71,45 @@ export function ModalPage() {
               </span>
             ))}
           </div>
+        </Section>
+
+        <Section title="Composite Combinations">
+          <Button onClick={() => setOpenForm(true)}>Open Profile Settings Modal</Button>
+          <Modal
+            open={openForm}
+            onClose={() => setOpenForm(false)}
+            title="Member Settings"
+            size="md"
+            footer={
+              <div className="flex justify-end gap-2 w-full">
+                <Button variant="ghost" onClick={() => setOpenForm(false)}>Cancel</Button>
+                <Button variant="primary" onClick={() => setOpenForm(false)}>Save changes</Button>
+              </div>
+            }
+          >
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 bg-surface-muted rounded-lg border border-border">
+                <Avatar name="Sarah Connor" status="online" size="lg" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-foreground">Sarah Connor</span>
+                    <Badge variant="primary" size="sm">Team Lead</Badge>
+                  </div>
+                  <Text variant="small" color="muted">sarah.connor@example.com</Text>
+                </div>
+              </div>
+              <Input label="Full Name" defaultValue="Sarah Connor" />
+              <Input label="Role Title" defaultValue="Design Systems Engineer" />
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-foreground">Assigned Teams</label>
+                <div className="flex gap-1.5 flex-wrap">
+                  <Chip variant="primary" selected>Design</Chip>
+                  <Chip variant="default" selected>Engineering</Chip>
+                  <Chip variant="default">Product</Chip>
+                </div>
+              </div>
+            </div>
+          </Modal>
         </Section>
       </div>
     </>

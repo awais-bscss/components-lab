@@ -1,5 +1,5 @@
 import { Tooltip } from '@/components/composites'
-import { Button, Badge } from '@/components/primitives'
+import { Avatar, Button, Badge } from '@/components/primitives'
 import { PageHeader, Section } from '@/components/showcase'
 import { EditIcon, TrashIcon, InfoIcon } from '@/icons'
 
@@ -56,6 +56,41 @@ export function TooltipPage() {
                 Info
               </Badge>
             </Tooltip>
+          </div>
+        </Section>
+
+        <Section title="Composite Combinations">
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-6">
+              <Tooltip content="Sarah Connor (Online, Core Team Lead)" position="top">
+                <div className="inline-block cursor-pointer">
+                  <Avatar name="Sarah Connor" status="online" size="lg" />
+                </div>
+              </Tooltip>
+              <Tooltip content="David Kim (Away for 20m)" position="top">
+                <div className="inline-block cursor-pointer">
+                  <Avatar name="David Kim" status="away" size="lg" />
+                </div>
+              </Tooltip>
+              <Tooltip content="Elena Rostova (Busy in meetings)" position="top">
+                <div className="inline-block cursor-pointer">
+                  <Avatar name="Elena Rostova" status="busy" size="lg" />
+                </div>
+              </Tooltip>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Tooltip content="Edit component properties" position="top">
+                <Button variant="outline" size="sm" aria-label="Edit component">
+                  <EditIcon className="w-4 h-4" />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Permanently delete item" position="top">
+                <Button variant="danger" size="sm" aria-label="Delete item">
+                  <TrashIcon className="w-4 h-4" />
+                </Button>
+              </Tooltip>
+            </div>
           </div>
         </Section>
       </div>

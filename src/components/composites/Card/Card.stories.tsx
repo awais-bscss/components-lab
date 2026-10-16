@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Card, CardHeader, CardBody, CardFooter } from './Card'
+import { Avatar, AvatarGroup, Badge, Button, Chip, Heading, Text } from '@/components/primitives'
+import { Progress } from '../Progress/Progress'
 
 const meta: Meta<typeof Card> = {
   title: 'Composites/Card',
@@ -78,10 +80,80 @@ export const WithFooterActions: Story = {
       <CardBody>
         This action is permanent and cannot be undone. All associated data will be removed.
       </CardBody>
-      <CardFooter>
-        <span className="flex-1" />
-        <button className="text-xs px-3 py-1.5 rounded border border-border hover:bg-surface-muted transition-colors">Cancel</button>
-        <button className="text-xs px-3 py-1.5 rounded bg-danger text-primary-foreground hover:bg-danger/90 transition-colors">Delete</button>
+      <CardFooter className="justify-end gap-2">
+        <Button variant="outline" size="sm">Cancel</Button>
+        <Button variant="danger" size="sm">Delete</Button>
+      </CardFooter>
+    </Card>
+  ),
+}
+
+export const UserProfileCombination: Story = {
+  name: 'Combination: Profile Card',
+  render: () => (
+    <Card variant="elevated" className="w-80">
+      <CardHeader>
+        <div className="flex items-center gap-3">
+          <Avatar name="Sarah Connor" status="online" size="lg" />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <Heading level="h4" className="text-sm font-semibold truncate">Sarah Connor</Heading>
+              <Badge variant="primary" size="sm">Lead</Badge>
+            </div>
+            <Text variant="small" color="muted" className="truncate">Design Systems Engineer</Text>
+          </div>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-3">
+        <Text variant="small" color="muted">
+          Leading accessibility and component token architecture across web and mobile.
+        </Text>
+        <div className="flex gap-1.5 flex-wrap">
+          <Chip variant="primary">React</Chip>
+          <Chip variant="default">TypeScript</Chip>
+          <Chip variant="default">Tailwind</Chip>
+        </div>
+      </CardBody>
+      <CardFooter className="justify-between">
+        <Button variant="outline" size="sm">Message</Button>
+        <Button variant="primary" size="sm">View profile</Button>
+      </CardFooter>
+    </Card>
+  ),
+}
+
+export const TaskProgressCombination: Story = {
+  name: 'Combination: Task Progress Card',
+  render: () => (
+    <Card variant="default" className="w-80">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <Heading level="h4" className="text-sm font-semibold">Q4 Release</Heading>
+          <Badge variant="warning" size="sm" dot>In Progress</Badge>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-4">
+        <Text variant="small" color="muted">
+          Finalizing component migrations and accessibility compliance checklists.
+        </Text>
+        <Progress value={72} label="Completion rate" showValue variant="primary" size="sm" />
+        <div className="flex items-center justify-between pt-1">
+          <Text variant="small" color="muted">Contributors</Text>
+          <AvatarGroup
+            size="xs"
+            max={3}
+            users={[
+              { name: 'Alex Johnson' },
+              { name: 'David Kim' },
+              { name: 'Elena Rostova' },
+              { name: 'Rachel Zane' },
+            ]}
+          />
+        </div>
+      </CardBody>
+      <CardFooter className="justify-end gap-2">
+        <Button variant="outline" size="sm">History</Button>
+        <Button variant="primary" size="sm">Deploy</Button>
       </CardFooter>
     </Card>
   ),

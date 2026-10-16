@@ -1,4 +1,5 @@
-import { Progress } from '@/components/composites'
+import { Progress, Card } from '@/components/composites'
+import { Badge, Button, Text } from '@/components/primitives'
 import { PageHeader, Section } from '@/components/showcase'
 
 export function ProgressPage() {
@@ -18,6 +19,29 @@ export function ProgressPage() {
             <Progress value={45} variant="warning" label="Warning" showValue />
             <Progress value={30} variant="error" label="Error" showValue />
             <Progress value={60} variant="default" label="Default" showValue />
+          </div>
+        </Section>
+
+        <Section title="Composite Combinations">
+          <div className="max-w-md">
+            <Card variant="default">
+              <Card.Header>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-foreground">Cloud Storage Usage</span>
+                  <Badge variant="warning" size="sm" dot>84% Full</Badge>
+                </div>
+              </Card.Header>
+              <Card.Body className="space-y-3">
+                <Text variant="small" color="muted">
+                  16.8 GB of 20 GB used across your component assets and production builds.
+                </Text>
+                <Progress value={84} variant="warning" size="md" />
+              </Card.Body>
+              <Card.Footer className="justify-between">
+                <Button variant="ghost" size="sm">Manage files</Button>
+                <Button variant="primary" size="sm">Upgrade plan</Button>
+              </Card.Footer>
+            </Card>
           </div>
         </Section>
 

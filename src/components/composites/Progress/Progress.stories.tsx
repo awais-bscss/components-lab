@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Progress } from './Progress'
+import { Card, CardHeader, CardBody, CardFooter } from '../Card/Card'
+import { Badge, Button, Text } from '@/components/primitives'
 
 const meta: Meta<typeof Progress> = {
   title: 'Composites/Progress',
@@ -77,6 +79,32 @@ export const AllSizes: Story = {
       <Progress value={60} size="sm" label="sm" />
       <Progress value={60} size="md" label="md" />
       <Progress value={60} size="lg" label="lg" />
+    </div>
+  ),
+}
+
+export const InCardCombination: Story = {
+  name: 'Combination: Storage & Sync Card',
+  render: () => (
+    <div className="w-80">
+      <Card variant="default">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold text-foreground">Cloud Storage</span>
+            <Badge variant="warning" size="sm" dot>84% Full</Badge>
+          </div>
+        </CardHeader>
+        <CardBody className="space-y-3">
+          <Text variant="small" color="muted">
+            16.8 GB of 20 GB used across your component assets and builds.
+          </Text>
+          <Progress value={84} variant="warning" size="md" />
+        </CardBody>
+        <CardFooter className="justify-between">
+          <Button variant="ghost" size="sm">Manage files</Button>
+          <Button variant="primary" size="sm">Upgrade plan</Button>
+        </CardFooter>
+      </Card>
     </div>
   ),
 }

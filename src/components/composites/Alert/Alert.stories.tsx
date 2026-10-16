@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Alert } from './Alert'
+import { Badge, Button, Text } from '@/components/primitives'
+import { Progress } from '../Progress/Progress'
 
 const meta: Meta<typeof Alert> = {
   title: 'Composites/Alert',
@@ -80,14 +82,44 @@ export const WithoutTitle: Story = {
   },
 }
 
-export const AllVariants: Story = {
-  name: 'All Variants',
+export const ActionWithBadgeCombination: Story = {
+  name: 'Combination: Action and Badge',
   render: () => (
-    <div className="flex flex-col gap-3 w-[400px]">
-      <Alert variant="info" title="Info">Informational message for general awareness.</Alert>
-      <Alert variant="success" title="Success">Operation completed without errors.</Alert>
-      <Alert variant="warning" title="Warning">Something requires your attention.</Alert>
-      <Alert variant="error" title="Error">A critical error has occurred.</Alert>
+    <div className="w-[480px]">
+      <Alert variant="warning" title="Security policy update" dismissible>
+        <div className="space-y-2 mt-1">
+          <div className="flex items-center gap-2">
+            <Text variant="small" color="muted">
+              Your API key will expire in 48 hours. Generate a new key to avoid service downtime.
+            </Text>
+            <Badge variant="warning" size="sm">Urgent</Badge>
+          </div>
+          <div className="flex items-center gap-2 pt-1">
+            <Button size="sm" variant="outline">Learn more</Button>
+            <Button size="sm" variant="primary">Rotate key now</Button>
+          </div>
+        </div>
+      </Alert>
+    </div>
+  ),
+}
+
+export const ProgressAlertCombination: Story = {
+  name: 'Combination: Upload Progress',
+  render: () => (
+    <div className="w-[480px]">
+      <Alert variant="info" title="Syncing workspace assets">
+        <div className="space-y-3 mt-1.5">
+          <Text variant="small" color="muted">
+            Uploading components and icon assets to the cloud repository.
+          </Text>
+          <Progress value={68} label="Upload progress" showValue size="sm" variant="primary" />
+          <div className="flex justify-end gap-2 pt-1">
+            <Button size="sm" variant="ghost">Cancel</Button>
+            <Button size="sm" variant="outline">View live log</Button>
+          </div>
+        </div>
+      </Alert>
     </div>
   ),
 }
