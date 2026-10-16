@@ -1,6 +1,6 @@
 # Tooltip
 
-A lightweight hover/focus tooltip that wraps any single React element and displays a short text label at a configurable position. Appears after a configurable delay and dismisses on `Escape`.
+Tooltip displays contextual helper text on element hover and focus.
 
 ## Import
 
@@ -10,48 +10,69 @@ import { Tooltip } from '@/components/composites/Tooltip'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `content` | `string` | required | Text displayed inside the tooltip bubble |
-| `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Placement relative to the trigger element |
-| `delay` | `number` | `300` | Milliseconds before the tooltip appears after hover/focus |
-| `children` | `ReactElement` | required | The trigger element. Must accept `aria-describedby` |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `content` | `string` | none | Yes | Text message displayed in the tooltip |
+| `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | No | Placement relative to the trigger element |
+| `delay` | `number` | `300` | No | Show delay in milliseconds |
+| `children` | `React.ReactElement` | none | Yes | Single interactive child element receiving the tooltip |
+
+Native HTML attributes do not pass through. Tooltip does not accept a `className` prop. Exported types: `TooltipProps`, `TooltipPosition`.
 
 ## Usage
 
-### Basic
-
 ```tsx
-<Tooltip content="Copy to clipboard">
-  <button>Copy</button>
+<Tooltip content="Edit profile">
+  <button type="button">Edit</button>
 </Tooltip>
 ```
 
-### Custom position
-
 ```tsx
-<Tooltip content="Opens in a new tab" position="right">
-  <a href="https://example.com" target="_blank">Link</a>
+<Tooltip content="Delete permanently" position="bottom">
+  <button type="button">Delete</button>
 </Tooltip>
 ```
 
-### No delay
-
 ```tsx
-<Tooltip content="Instant" delay={0}>
-  <button>Hover me</button>
+<Tooltip content="More info" position="right" delay={150}>
+  <span tabIndex={0}>Notice</span>
 </Tooltip>
 ```
+
+## Variants and sizes
+
+| Position | Placement class values |
+| --- | --- |
+| `top` | `bottom-full left-1/2 -translate-x-1/2 mb-1.5` |
+| `bottom` | `top-full left-1/2 -translate-x-1/2 mt-1.5` |
+| `left` | `right-full top-1/2 -translate-y-1/2 mr-1.5` |
+| `right` | `left-full top-1/2 -translate-y-1/2 ml-1.5` |
 
 ## Accessibility
 
-- Renders a `role="tooltip"` element with a generated ID.
-- `aria-describedby` is set on the trigger while the tooltip is visible and removed when hidden.
-- The tooltip dismisses on `Escape` keydown.
-- Responds to both `mouseenter`/`mouseleave` and `focus`/`blur` so keyboard users receive tooltip content.
+Keyboard interaction:
 
-## Notes
+| Key | Action |
+| --- | --- |
+| `Tab` to trigger | Shows tooltip after delay when trigger receives focus |
+| `Escape` | Dismisses the tooltip immediately |
+| `Shift + Tab` off trigger | Hides tooltip on focus loss |
 
-- `children` must be a single React element that forwards `aria-describedby` (all HTML elements do this by default).
-- The tooltip uses CSS `position: absolute` relative to its inline wrapper. If the trigger is in a container with `overflow: hidden`, the tooltip may clip. In that case, consider a portal-based alternative.
-- Long strings in `content` are rendered with `whitespace-nowrap`. Keep tooltip text concise.
+- Injects `aria-describedby` into child element pointing to the tooltip ID when visible.
+- Tooltip popup uses `role="tooltip"`.
+- Trigger works with both mouse events and keyboard focus events.
+
+## Design tokens
+
+- `bg-tooltip`
+- `text-tooltip-foreground`
+- `border-border-strong`
+
+## Notes and limitations
+
+- Tooltip uses CSS absolute positioning relative to its inline wrapper. If a parent container has `overflow: hidden`, the popup can be clipped.
+- Children prop must be a single valid React element.
+
+## Related
+
+- [Button](../../primitives/Button/README.md)

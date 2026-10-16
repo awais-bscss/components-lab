@@ -1,6 +1,6 @@
 # DataTable
 
-A type-safe tabular data component supporting client-side filtering, multi-directional column sorting, custom cell render templates, clickable rows, and responsive horizontal scrolling.
+DataTable displays tabular records with column sorting and search filtering.
 
 ## Import
 
@@ -10,26 +10,18 @@ import { DataTable, type ColumnDef } from '@/components/interactive/DataTable'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `T[]` | required | Array of record objects to render |
-| `columns` | `ColumnDef<T>[]` | required | Column specifications and cell renderers |
-| `getRowId` | `(row: T) => string \| number` | required | Function returning a unique key for each row |
-| `searchable` | `boolean` | `true` | Whether to display the search query input |
-| `searchPlaceholder` | `string` | `'Search...'` | Placeholder text for the search input |
-| `emptyMessage` | `string` | `'No results found.'` | Text shown when no rows match the filter |
-| `onRowClick` | `(row: T) => void` | `undefined` | Callback fired when a table row is clicked or activated |
-| `className` | `string` | `undefined` | Additional CSS classes for outer container |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `data` | `T[]` | none | Yes | Array of record objects |
+| `columns` | `ColumnDef<T>[]` | none | Yes | Column configurations defining key, header, sortable, width, render |
+| `getRowId` | `(row: T) => string \| number` | none | Yes | Function returning unique identifier per row |
+| `searchable` | `boolean` | `true` | No | Shows search filter input |
+| `searchPlaceholder` | `string` | `'Search...'` | No | Search input placeholder text |
+| `emptyMessage` | `string` | `'No results found.'` | No | Text displayed when no rows match |
+| `onRowClick` | `(row: T) => void` | `undefined` | No | Callback when a row is clicked or activated |
+| `className` | `string` | `undefined` | No | Additional class names applied to the container |
 
-### ColumnDef<T>
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `key` | `keyof T` | Object property key for the column |
-| `header` | `string` | Text rendered in the table header cell |
-| `sortable` | `boolean` | When true, header becomes a sortable button |
-| `width` | `string` | Optional CSS width style (e.g. `'200px'`) |
-| `render` | `(value: T[K], row: T) => ReactNode` | Optional custom cell renderer function |
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `DataTableProps`, `ColumnDef`, `SortDir`.
 
 ## Usage
 
@@ -37,29 +29,58 @@ import { DataTable, type ColumnDef } from '@/components/interactive/DataTable'
 interface User {
   id: string
   name: string
-  email: string
   role: string
 }
 
 const columns: ColumnDef<User>[] = [
   { key: 'name', header: 'Name', sortable: true },
-  { key: 'email', header: 'Email', sortable: true },
   { key: 'role', header: 'Role', sortable: true },
 ]
 
+const data: User[] = [
+  { id: '1', name: 'Sarah Jenkins', role: 'Engineer' },
+  { id: '2', name: 'Alex Rivera', role: 'Designer' },
+]
+
+<DataTable data={data} columns={columns} getRowId={row => row.id} />
+```
+
+```tsx
 <DataTable
-  data={users}
+  data={data}
   columns={columns}
-  getRowId={user => user.id}
-  searchable
-  onRowClick={user => navigate(`/users/${user.id}`)}
+  getRowId={row => row.id}
+  onRowClick={user => console.log(user.name)}
+  searchable={false}
 />
 ```
 
 ## Accessibility
 
-- Table headers include `aria-sort="ascending"`, `aria-sort="descending"`, or `aria-sort="none"` when column sorting is enabled.
-- Sort buttons are focusable with visible focus rings.
-- The search input includes an explicit `aria-label="Search table"`.
-- Row count updates are communicated via an `aria-live="polite"` region.
-- Interactive rows support keyboard navigation (`Tab`, `Enter`, and `Space`) and have appropriate `tabIndex={0}`.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Moves focus between search input, column sort buttons, and interactive rows |
+| `Enter` / `Space` on sort button | Toggles sort direction between ascending, descending, and none |
+| `Enter` / `Space` on row | Triggers `onRowClick` when row is interactive |
+
+- Table uses `aria-label="Data table"`.
+- Headers have `scope="col"` and dynamic `aria-sort` (`ascending`, `descending`, `none`).
+- Search input has `aria-label="Search table"`.
+- Row count element has `aria-live="polite"`.
+
+## Design tokens
+
+- `bg-surface`, `bg-surface-muted`, `border-border`
+- `text-foreground`, `text-muted-foreground`, `focus:ring-ring`
+
+## Notes and limitations
+
+- Sorting and filtering are performed entirely in client-side memory.
+- Server pagination is not built in.
+
+## Related
+
+- [Card](../../composites/Card/README.md)
+- [Input](../../primitives/Input/README.md)

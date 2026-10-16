@@ -1,6 +1,6 @@
 # Progress
 
-A progress bar component supporting determinate (0-100) and indeterminate states, multiple color variants, and track sizes. Includes an optional text label and percentage display.
+Progress displays task completion status or an ongoing indeterminate state.
 
 ## Import
 
@@ -10,55 +10,77 @@ import { Progress } from '@/components/composites/Progress'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `number` | `undefined` | Current value 0-100. Omit for indeterminate animation |
-| `variant` | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Fill color intent |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Height of the progress track |
-| `label` | `string` | `undefined` | Text label displayed above the track |
-| `showValue` | `boolean` | `false` | Show the numeric percentage next to the label |
-| `className` | `string` | `undefined` | Additional CSS classes on the wrapper element |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `value` | `number` | `undefined` | No | Completion percentage between 0 and 100; undefined activates indeterminate mode |
+| `variant` | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'primary'` | No | Color theme of the progress bar fill |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | No | Track height preset |
+| `label` | `string` | `undefined` | No | Text label and accessible name |
+| `showValue` | `boolean` | `false` | No | Displays numeric percentage text above the track |
+| `className` | `string` | `undefined` | No | Additional class names applied to the container |
+
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `ProgressProps`, `ProgressVariantProps`, `ProgressFillVariantProps`.
 
 ## Usage
-
-### Determinate
 
 ```tsx
 <Progress value={65} />
 ```
 
-### With label and value
-
 ```tsx
-<Progress value={78} label="Storage used" showValue />
+<Progress value={80} variant="success" label="Upload progress" showValue />
 ```
 
-### Indeterminate
+```tsx
+<Progress value={25} variant="warning" size="lg" />
+```
 
 ```tsx
 <Progress label="Processing..." />
 ```
 
-### Color variants
+## Variants and sizes
 
-```tsx
-<Progress value={80} variant="success" label="Completed" showValue />
-<Progress value={40} variant="warning" label="Degraded" showValue />
-<Progress value={20} variant="error" label="Critical" showValue />
-```
+| Size | Track class values |
+| --- | --- |
+| `xs` | `h-1` |
+| `sm` | `h-1.5` |
+| `md` | `h-2` |
+| `lg` | `h-3` |
 
-## Track Sizes
-
-| Size | Height |
-|------|--------|
-| `xs` | 4px (`h-1`) |
-| `sm` | 6px (`h-1.5`) |
-| `md` | 8px (`h-2`) |
-| `lg` | 12px (`h-3`) |
+| Variant | Fill class values |
+| --- | --- |
+| `default` | `bg-muted-foreground` |
+| `primary` | `bg-primary` |
+| `success` | `bg-success` |
+| `warning` | `bg-warning` |
+| `error` | `bg-danger` |
 
 ## Accessibility
 
-- Renders a `role="progressbar"` element.
-- `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` are set for determinate state.
-- `aria-label` uses the `label` prop value or defaults to `'Progress'`.
-- Indeterminate state omits `aria-valuenow` per ARIA specification.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| None | Progress is a non-interactive status indicator |
+
+- Progress container uses `role="progressbar"`.
+- Sets `aria-valuemin="0"` and `aria-valuemax="100"`.
+- Sets `aria-valuenow` to the clamped value when determinate, and removes `aria-valuenow` when indeterminate.
+- Includes `aria-label` matching `label` or defaulting to `Progress`.
+
+## Design tokens
+
+- `bg-surface-muted`, `border-border/50`
+- `bg-primary`, `bg-success`, `bg-warning`, `bg-danger`, `bg-muted-foreground`
+- `text-foreground`, `text-muted-foreground`
+
+## Notes and limitations
+
+- Values are clamped to the 0 through 100 range.
+- Indeterminate state uses CSS keyframes animation (`animate-indeterminate`).
+
+## Related
+
+- [Spinner](../../primitives/Spinner/README.md)
+- [Skeleton](../../primitives/Skeleton/README.md)

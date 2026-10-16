@@ -1,6 +1,6 @@
 # Button
 
-An interactive element that triggers actions, submits forms, or links to navigation targets. Supports multiple variants, sizes, loading states, and icon slots.
+Button triggers actions, submits forms, or links to destinations.
 
 ## Import
 
@@ -10,54 +10,79 @@ import { Button } from '@/components/primitives/Button'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | Visual style variant |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button height and padding |
-| `isLoading` | `boolean` | `false` | When true, renders a spinning indicator and disables interactions |
-| `leftIcon` | `ReactNode` | `undefined` | Icon element rendered before button content |
-| `rightIcon` | `ReactNode` | `undefined` | Icon element rendered after button content |
-| `disabled` | `boolean` | `false` | Standard HTML button disabled state |
-| `children` | `ReactNode` | `undefined` | Button content |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | No | Visual style preset |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | No | Dimensions and spacing |
+| `isLoading` | `boolean` | `false` | No | Replaces left icon with a spinner and disables clicks |
+| `leftIcon` | `React.ReactNode` | `undefined` | No | Icon slot rendered before label |
+| `rightIcon` | `React.ReactNode` | `undefined` | No | Icon slot rendered after label |
+| `disabled` | `boolean` | `false` | No | Disables click events and reduces opacity |
+| `children` | `React.ReactNode` | `undefined` | No | Button content |
+| `className` | `string` | `undefined` | No | Additional class names applied to the button |
 
-In addition to the above, all standard HTML `<button>` attributes (`onClick`, `type`, `name`, `form`, etc.) are supported via `forwardRef`.
+Native button attributes (`onClick`, `type`, `form`, etc.) pass through via `forwardRef`. `className` merges with the variant styles. Exported types: `ButtonProps`, `ButtonVariantProps`.
 
 ## Usage
 
-### Basic Variants
-
 ```tsx
 <Button variant="primary">Save changes</Button>
-<Button variant="secondary">Cancel</Button>
-<Button variant="outline">View details</Button>
-<Button variant="ghost">Dismiss</Button>
-<Button variant="danger">Delete</Button>
 ```
-
-### With Icons
 
 ```tsx
-import { PlusIcon, ArrowRightIcon } from '@/icons'
-
-<Button leftIcon={<PlusIcon className="w-4 h-4" />}>
-  Create project
-</Button>
-
-<Button rightIcon={<ArrowRightIcon className="w-4 h-4" />}>
-  Continue
-</Button>
+<Button variant="secondary" size="sm">Cancel</Button>
 ```
-
-### Loading State
 
 ```tsx
-<Button isLoading>Saving...</Button>
+<Button isLoading variant="primary">Submitting</Button>
 ```
+
+```tsx
+<Button variant="danger" disabled>Delete project</Button>
+```
+
+## Variants and sizes
+
+| Variant | Class values |
+| --- | --- |
+| `primary` | `bg-primary text-primary-foreground hover:bg-primary-hover shadow-xs` |
+| `secondary` | `bg-surface-muted text-foreground hover:bg-border border border-border` |
+| `outline` | `bg-transparent text-foreground border border-border hover:bg-surface-muted` |
+| `ghost` | `bg-transparent text-muted-foreground hover:text-foreground hover:bg-surface-muted` |
+| `danger` | `bg-danger text-white hover:bg-danger/90 shadow-xs` |
+
+| Size | Class values |
+| --- | --- |
+| `sm` | `h-8 px-3 text-xs gap-1.5` |
+| `md` | `h-9 px-4 text-sm gap-2` |
+| `lg` | `h-10 px-5 text-sm gap-2.5` |
 
 ## Accessibility
 
-- Renders a semantic native `<button>` element with keyboard focus and activation (`Enter`, `Space`) built in.
-- Applies `aria-busy="true"` when `isLoading` is active.
-- Uses `focus-visible:ring-2` with `focus-visible:ring-offset-2` for accessible keyboard focus outlines across light and dark modes.
-- Disabled buttons have `disabled` attribute set, preventing pointer and keyboard activation.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| `Enter` | Activates the button |
+| `Space` | Activates the button |
+
+- Uses native `<button>` element with focus handling.
+- Focus indicator uses `focus-visible:ring-2 focus-visible:ring-ring`.
+- Sets `aria-busy="true"` when `isLoading` is true.
+- Disabled buttons receive native `disabled` attribute, removing them from tab sequence.
+
+## Design tokens
+
+- `bg-primary`, `text-primary-foreground`, `bg-primary-hover`
+- `bg-surface-muted`, `text-foreground`, `border-border`
+- `text-muted-foreground`, `bg-danger`, `ring-ring`
+
+## Notes and limitations
+
+- Loading state replaces `leftIcon` with `SpinnerIcon` and preserves `rightIcon` only when not loading.
+- Does not support polymorphic `asChild` slot rendering.
+
+## Related
+
+- [Chip](../Chip/README.md)
+- [Spinner](../Spinner/README.md)

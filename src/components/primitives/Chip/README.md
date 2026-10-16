@@ -1,6 +1,6 @@
 # Chip
 
-Compact interactive pill element for filters, tags, selections, and dismissible items.
+Chip displays a compact interactive element for selections, filters, and removable values.
 
 ## Import
 
@@ -10,59 +10,77 @@ import { Chip } from '@/components/primitives/Chip'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | Visual color theme |
-| `selected` | `boolean` | `false` | Whether the chip is highlighted as selected |
-| `disabled` | `boolean` | `false` | Disables interaction and lowers opacity |
-| `leftIcon` | `ReactNode` | `undefined` | Optional icon rendered on the left |
-| `onClick` | `() => void` | `undefined` | Callback fired when the chip body is clicked |
-| `onRemove` | `() => void` | `undefined` | Callback fired when remove button is clicked |
-| `children` | `ReactNode` | required | Content displayed inside the chip |
-| `className` | `string` | `undefined` | Additional classes merged onto root element |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `variant` | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | No | Color theme |
+| `selected` | `boolean` | `false` | No | Active toggle state |
+| `disabled` | `boolean` | `false` | No | Disables click actions |
+| `leftIcon` | `React.ReactNode` | `undefined` | No | Icon rendered before text |
+| `onRemove` | `() => void` | `undefined` | No | Callback when close button is clicked |
+| `onClick` | `() => void` | `undefined` | No | Callback when chip body is clicked |
+| `children` | `React.ReactNode` | none | Yes | Chip label content |
+| `className` | `string` | `undefined` | No | Additional class names |
+
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `ChipProps`, `ChipVariantProps`.
 
 ## Usage
 
-### Filter / Selection
-
 ```tsx
-<Chip
-  variant="primary"
-  selected={isSelected}
-  onClick={() => setIsSelected(!isSelected)}
->
-  TypeScript
-</Chip>
+<Chip>React</Chip>
 ```
 
-### Dismissible Tag
-
 ```tsx
-<Chip
-  variant="default"
-  onRemove={() => handleRemove(tagId)}
->
+<Chip selected variant="primary" onClick={() => {}}>
   Frontend
 </Chip>
 ```
 
-### Clickable and Removable
-
-When both `onClick` and `onRemove` are provided, the chip splits into two accessible interactive hit targets:
-
 ```tsx
-<Chip
-  variant="primary"
-  onClick={() => handleFilter('Design')}
-  onRemove={() => handleRemove('Design')}
->
-  Design
+<Chip variant="default" onRemove={() => {}}>
+  Removable
 </Chip>
 ```
 
+```tsx
+<Chip disabled variant="warning">
+  Archived
+</Chip>
+```
+
+## Variants and sizes
+
+| Variant | Base class values | Selected class values |
+| --- | --- | --- |
+| `default` | `bg-surface-muted border-border text-muted-foreground` | `bg-border-strong text-foreground border-border-strong` |
+| `primary` | `bg-primary-soft border-primary/20 text-primary-soft-foreground` | `bg-primary text-primary-foreground border-primary` |
+| `success` | `bg-success-soft border-success-soft-border text-success-soft-foreground` | `bg-success text-white border-success` |
+| `warning` | `bg-warning-soft border-warning-soft-border text-warning-soft-foreground` | `bg-warning text-slate-950 font-medium border-warning` |
+| `error` | `bg-danger-soft border-danger-soft-border text-danger-soft-foreground` | `bg-danger text-white border-danger` |
+
 ## Accessibility
 
-- When clickable, renders an accessible native `<button>` element with keyboard focus and activation (`Enter`, `Space`).
-- When removable, the remove button has an explicit `aria-label="Remove"`.
-- Uses `focus-visible:ring-2` to ensure clear keyboard focus styling.
-- Decorative left icons are marked `aria-hidden="true"`.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` on chip | Triggers `onClick` callback |
+| `Enter` / `Space` on remove button | Triggers `onRemove` callback |
+
+- Clickable and removable chips use sibling `<button>` elements to avoid nested interactive elements.
+- The remove button includes `aria-label="Remove"`.
+- Disabled state sets `aria-disabled="true"` and `disabled` on underlying buttons.
+
+## Design tokens
+
+- `bg-surface-muted`, `border-border`, `text-muted-foreground`, `border-border-strong`
+- `bg-primary-soft`, `text-primary-soft-foreground`, `bg-primary`, `text-primary-foreground`
+- `bg-success-soft`, `bg-warning-soft`, `bg-danger-soft`, `ring-ring`
+
+## Notes and limitations
+
+- When both `onClick` and `onRemove` are provided, the root element renders as a `<span>` containing two sibling `<button>` tags.
+
+## Related
+
+- [Badge](../Badge/README.md)
+- [Button](../Button/README.md)

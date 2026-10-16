@@ -1,6 +1,6 @@
 # Divider
 
-A visual or semantic separator that groups or partitions content within layouts.
+Divider visually separates content sections horizontally or vertically.
 
 ## Import
 
@@ -10,38 +10,53 @@ import { Divider } from '@/components/primitives/Divider'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction of the dividing line |
-| `label` | `string` | `undefined` | Optional text rendered centered across a horizontal divider |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | No | Direction of the divider line |
+| `label` | `string` | `undefined` | No | Center label rendered between divider segments |
+| `className` | `string` | `undefined` | No | Additional class names applied to the container |
+
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `DividerProps`.
 
 ## Usage
-
-### Horizontal Divider
 
 ```tsx
 <Divider />
 ```
 
-### With Centered Label
-
 ```tsx
-<Divider label="OR CONTINUE WITH" />
+<Divider label="OR" />
 ```
 
-### Vertical Divider
-
 ```tsx
-<div className="flex items-center h-8 gap-3">
-  <span>Link 1</span>
+<div className="flex items-center h-6">
+  <span>Left</span>
   <Divider orientation="vertical" />
-  <span>Link 2</span>
+  <span>Right</span>
 </div>
 ```
 
 ## Accessibility
 
-- Renders an element with `role="separator"`.
-- When orientation is `'vertical'`, sets `aria-orientation="vertical"`.
-- Divider line tracks in label dividers use `aria-hidden="true"` so only the textual label is read.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| None | Divider is a non-interactive separator element |
+
+- Root element uses `role="separator"`.
+- Vertical divider sets `aria-orientation="vertical"`.
+- Segment lines around a text label use `aria-hidden="true"`.
+
+## Design tokens
+
+- `bg-border`
+- `text-muted-foreground`
+
+## Notes and limitations
+
+- Center text labels are supported on `orientation="horizontal"` only.
+
+## Related
+
+- [Typography](../Typography/README.md)

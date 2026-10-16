@@ -1,6 +1,6 @@
 # Avatar
 
-A visual representation of a user, supporting photos, auto-generated initials from user names, and optional status indicator dots. Also includes an `AvatarGroup` component for stacked multi-user displays.
+Avatar displays a user image, name initials, or an icon placeholder to represent an identity.
 
 ## Import
 
@@ -10,71 +10,79 @@ import { Avatar, AvatarGroup } from '@/components/primitives/Avatar'
 
 ## Props
 
-### AvatarProps
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `src` | `string` | `undefined` | No | Image source URL |
+| `alt` | `string` | `undefined` | No | Alternative text for the image |
+| `name` | `string` | `undefined` | No | User name used to generate initials and background color |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | No | Avatar dimension preset |
+| `status` | `'online' \| 'offline' \| 'busy' \| 'away'` | `undefined` | No | Activity status indicator badge |
+| `className` | `string` | `undefined` | No | Additional class names applied to the container |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | `undefined` | URL for the user profile image |
-| `name` | `string` | `undefined` | Full name used for initials generation and deterministic background color |
-| `alt` | `string` | `name \| 'Avatar'` | Accessible text for screen readers |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Dimension and font size of the avatar |
-| `status` | `'online' \| 'offline' \| 'busy' \| 'away'` | `undefined` | Status indicator dot displayed in the corner |
-| `className` | `string` | `undefined` | Additional CSS classes merged onto the container |
-
-### AvatarGroupProps
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `users` | `Array<{ name: string; src?: string }>` | required | List of user objects to render |
-| `max` | `number` | `4` | Maximum number of visible avatars before showing count badge |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size applied to all avatars in the group |
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `AvatarProps`, `AvatarGroupProps`, `AvatarVariantProps`, `AvatarStatus`.
 
 ## Usage
 
-### Initials Fallback
-
-When no image URL is provided, initials are extracted from the user's name:
-
 ```tsx
-<Avatar name="Sarah Connor" />
+<Avatar name="Sarah Jenkins" />
 ```
 
-### With Image
-
 ```tsx
-<Avatar
-  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
-  name="Alex Johnson"
-/>
+<Avatar src="/profile.jpg" alt="Alex Rivera" size="lg" status="online" />
 ```
 
-### Status Indicators
-
 ```tsx
-<Avatar name="Marcus Vance" status="online" />
-<Avatar name="Elena Rostova" status="busy" />
-<Avatar name="David Kim" status="away" />
-<Avatar name="Rachel Zane" status="offline" />
+<Avatar status="busy" />
 ```
-
-### Avatar Group
 
 ```tsx
 <AvatarGroup
   users={[
-    { name: 'Sarah Connor' },
-    { name: 'Alex Johnson' },
-    { name: 'Marcus Vance' },
-    { name: 'Elena Rostova' },
-    { name: 'David Kim' },
+    { name: 'Sarah Jenkins' },
+    { name: 'Alex Rivera' },
+    { name: 'Jordan Lee' },
   ]}
-  max={4}
+  max={2}
 />
 ```
 
+## Variants and sizes
+
+| Size | Class values | Dimensions |
+| --- | --- | --- |
+| `xs` | `w-6 h-6 text-[10px]` | 24px by 24px |
+| `sm` | `w-8 h-8 text-xs` | 32px by 32px |
+| `md` | `w-10 h-10 text-sm` | 40px by 40px |
+| `lg` | `w-12 h-12 text-base` | 48px by 48px |
+| `xl` | `w-16 h-16 text-xl` | 64px by 64px |
+
 ## Accessibility
 
-- When `src` is provided, the image contains an `alt` attribute describing the user.
-- If no image is provided, screen readers can identify the user from the name or aria attributes.
-- Status dots include `role="img"` and `aria-label` describing the status value (e.g. `Status: online`).
-- Generic fallback icons use `aria-hidden="true"` to prevent screen reader noise.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| None | Avatar is a static presentation element and has no keyboard actions |
+
+- The image element includes an `alt` attribute defaulting to name or `Avatar`.
+- The status indicator uses `role="img"` with an `aria-label` stating the status value.
+- Fallback user icon has no interactive tab stops.
+
+## Design tokens
+
+- `ring-surface`
+- `bg-surface-muted`
+- `border-surface`
+- `border-border`
+- `text-muted-foreground`
+- `bg-success`, `bg-muted-foreground`, `bg-danger`, `bg-warning`
+
+## Notes and limitations
+
+- Image load failure does not trigger an automatic fallback to initials when `src` is provided.
+- Initials generation uses at most two letters derived from the first and last words in `name`.
+
+## Related
+
+- [Badge](../Badge/README.md)
+- [Skeleton](../Skeleton/README.md)

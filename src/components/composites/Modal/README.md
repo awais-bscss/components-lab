@@ -1,6 +1,6 @@
 # Modal
 
-An accessible dialog overlay rendered via `ReactDOM.createPortal` directly into `document.body`. Implements full keyboard focus trapping, Escape-to-close, scroll lock, and focus restoration.
+Modal renders a dialog window over the page using a React portal with focus trapping.
 
 ## Import
 
@@ -10,72 +10,84 @@ import { Modal } from '@/components/composites/Modal'
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | required | Controls visibility of the modal |
-| `onClose` | `() => void` | required | Called when the user closes the modal (overlay click, Escape, or close button) |
-| `title` | `string` | `undefined` | Heading text in the header bar. Omit to render without a header |
-| `children` | `ReactNode` | required | Body content of the modal |
-| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Maximum width of the dialog panel |
-| `closeOnOverlay` | `boolean` | `true` | Whether clicking the backdrop calls `onClose` |
-| `footer` | `ReactNode` | `undefined` | Action buttons rendered in the footer bar |
-| `aria-describedby` | `string` | `undefined` | ID of an element that describes the dialog content for screen readers |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `open` | `boolean` | none | Yes | Controls dialog visibility |
+| `onClose` | `() => void` | none | Yes | Callback function when closing the modal |
+| `title` | `string` | `undefined` | No | Title text in header and aria-labelledby source |
+| `children` | `React.ReactNode` | none | Yes | Main dialog content |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | No | Dialog maximum width preset |
+| `closeOnOverlay` | `boolean` | `true` | No | Calls onClose when backdrop is clicked |
+| `footer` | `React.ReactNode` | `undefined` | No | Action buttons rendered in modal footer |
+| `aria-describedby` | `string` | `undefined` | No | Element ID providing additional accessible description |
+
+Native HTML attributes do not pass through. Modal does not accept a `className` prop. Exported types: `ModalProps`, `ModalSize`.
 
 ## Usage
 
-### Basic controlled modal
-
 ```tsx
-const [open, setOpen] = useState(false)
-
-<>
-  <Button onClick={() => setOpen(true)}>Open</Button>
-  <Modal open={open} onClose={() => setOpen(false)} title="Edit profile">
-    Modal body content goes here.
-  </Modal>
-</>
+<Modal open={isOpen} onClose={() => setIsOpen(false)} title="Edit profile">
+  <p>Update your account details below.</p>
+</Modal>
 ```
-
-### With footer actions
 
 ```tsx
 <Modal
-  open={open}
-  onClose={() => setOpen(false)}
-  title="Confirm deletion"
+  open={isOpen}
+  onClose={() => setIsOpen(false)}
+  title="Delete confirmation"
+  size="sm"
   footer={
     <>
-      <Button variant="secondary" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="danger" size="sm" onClick={handleDelete}>Delete</Button>
+      <Button variant="secondary" onClick={() => setIsOpen(false)}>Cancel</Button>
+      <Button variant="danger">Delete</Button>
     </>
   }
 >
-  This action cannot be undone.
+  <p>This action cannot be undone.</p>
 </Modal>
 ```
 
-### Prevent overlay close
+## Variants and sizes
 
-```tsx
-<Modal open={open} onClose={() => setOpen(false)} closeOnOverlay={false} title="Required">
-  You must complete this form before continuing.
-</Modal>
-```
+| Size | Maximum width class |
+| --- | --- |
+| `sm` | `max-w-sm` |
+| `md` | `max-w-md` |
+| `lg` | `max-w-lg` |
+| `xl` | `max-w-xl` |
 
 ## Accessibility
 
-- Renders a `role="dialog"` with `aria-modal="true"`.
-- `title` prop binds `aria-labelledby` automatically via a generated ID.
-- Keyboard focus is trapped within the dialog while open.
-- `Escape` key calls `onClose`.
-- Focus returns to the previously focused element when the modal closes.
-- `document.body` scroll is locked while the modal is open.
+Keyboard interaction:
 
-## Sizes
+| Key | Action |
+| --- | --- |
+| `Escape` | Closes the modal and triggers `onClose` |
+| `Tab` | Moves focus forward through interactive elements inside the modal |
+| `Shift + Tab` | Moves focus backward through interactive elements inside the modal |
 
-| Size | Max Width |
-|------|-----------|
-| `sm` | `max-w-sm` (384px) |
-| `md` | `max-w-md` (448px) |
-| `lg` | `max-w-lg` (512px) |
-| `xl` | `max-w-xl` (576px) |
+- Sets `role="dialog"` and `aria-modal="true"` on the dialog container.
+- Connects dialog title to `aria-labelledby` with an internal unique ID.
+- Traps focus inside the modal dialog while open.
+- Locks document body scroll while the modal is open.
+- Restores focus to the element that triggered the modal upon closing.
+
+## Design tokens
+
+- `bg-overlay`
+- `bg-surface`
+- `border-border`
+- `text-foreground`
+- `text-muted-foreground`
+- `bg-surface-muted/30`
+
+## Notes and limitations
+
+- Renders into `document.body` using `createPortal`.
+- Modal title is required to populate the accessible dialog label automatically.
+
+## Related
+
+- [Alert](../Alert/README.md)
+- [Card](../Card/README.md)

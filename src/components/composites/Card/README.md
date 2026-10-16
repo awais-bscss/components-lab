@@ -1,6 +1,6 @@
 # Card
 
-A flexible surface container with optional composable sub-parts: `Card.Header`, `Card.Body`, and `Card.Footer`. Supports four visual variants and a padding shorthand for flat usage.
+Card groups related information and actions into a structured container.
 
 ## Import
 
@@ -8,91 +8,86 @@ A flexible surface container with optional composable sub-parts: `Card.Header`, 
 import { Card, CardHeader, CardBody, CardFooter } from '@/components/composites/Card'
 ```
 
-`Card.Header`, `Card.Body`, and `Card.Footer` are also available as static properties on `Card`:
-
-```tsx
-import { Card } from '@/components/composites/Card'
-
-<Card>
-  <Card.Header>...</Card.Header>
-  <Card.Body>...</Card.Body>
-  <Card.Footer>...</Card.Footer>
-</Card>
-```
-
 ## Props
 
-### Card
+### Card Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'elevated' \| 'outlined' \| 'ghost'` | `'default'` | Surface treatment |
-| `padding` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'none'` | Uniform internal padding. Use `none` when composing with sub-parts |
-| `children` | `ReactNode` | required | Card content |
-| `className` | `string` | `undefined` | Additional CSS classes merged onto the root element |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `variant` | `'default' \| 'elevated' \| 'outlined' \| 'ghost'` | `'default'` | No | Border and shadow styling |
+| `padding` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'none'` | No | Internal padding preset |
+| `children` | `React.ReactNode` | none | Yes | Content or compound sub-components |
+| `className` | `string` | `undefined` | No | Additional class names |
 
-### CardHeader
+### Sub-component Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `children` | `ReactNode` | Header content -- typically a title string |
-| `className` | `string` | Additional CSS classes |
+`CardHeader`, `CardBody`, and `CardFooter` each accept `{ children: React.ReactNode, className?: string }`.
 
-### CardBody
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `children` | `ReactNode` | Main content area |
-| `className` | `string` | Additional CSS classes |
-
-### CardFooter
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `children` | `ReactNode` | Footer content -- typically actions or metadata |
-| `className` | `string` | Additional CSS classes |
+Native HTML attributes do not pass through. `className` applies to the root element. Exported types: `CardProps`, `CardHeaderProps`, `CardBodyProps`, `CardFooterProps`, `CardVariantProps`, `CardVariant`.
 
 ## Usage
 
-### With sub-parts
-
 ```tsx
-<Card>
-  <Card.Header>Project Overview</Card.Header>
-  <Card.Body>
-    A reusable card component for grouping related content.
-  </Card.Body>
+<Card variant="default">
+  <Card.Header>Project summary</Card.Header>
+  <Card.Body>Active tasks and progress.</Card.Body>
   <Card.Footer>Last updated 2 hours ago</Card.Footer>
 </Card>
 ```
 
-### Flat with padding
-
 ```tsx
-<Card padding="md">
-  Simple padded card without sub-parts.
+<Card variant="elevated" padding="md">
+  <h4>Standalone card</h4>
+  <p>Uses direct padding without sub-components.</p>
 </Card>
 ```
 
-### With footer actions
-
 ```tsx
-<Card>
-  <Card.Header>Confirm deletion</Card.Header>
-  <Card.Body>This action cannot be undone.</Card.Body>
-  <Card.Footer>
-    <span className="flex-1" />
-    <Button variant="secondary" size="sm">Cancel</Button>
-    <Button variant="danger" size="sm">Delete</Button>
-  </Card.Footer>
+<Card variant="outlined">
+  <Card.Body>Outlined container with subtle border.</Card.Body>
 </Card>
 ```
 
-## Variants
+## Variants and sizes
 
-| Variant | Description |
-|---------|-------------|
-| `default` | Standard surface with `shadow-xs` |
-| `elevated` | Stronger `shadow-md` for depth |
-| `outlined` | Transparent background, stronger border |
-| `ghost` | Muted background, no visible border |
+| Variant | Class values |
+| --- | --- |
+| `default` | `bg-surface border border-border shadow-xs` |
+| `elevated` | `bg-surface border border-border shadow-md` |
+| `outlined` | `bg-transparent border border-border-strong` |
+| `ghost` | `bg-surface-muted border border-transparent` |
+
+| Padding | Class values |
+| --- | --- |
+| `none` | empty |
+| `sm` | `p-3` |
+| `md` | `p-5` |
+| `lg` | `p-6` |
+
+## Accessibility
+
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| None | Card is a static container element with no built-in keyboard actions |
+
+- Renders semantic `<div>` elements without forced interactive roles.
+- Interactive elements placed inside Card retain their native keyboard accessibility.
+
+## Design tokens
+
+- `bg-surface`
+- `bg-surface-muted`
+- `border-border`
+- `border-border-strong`
+- `text-foreground`
+
+## Notes and limitations
+
+- Sub-components (`CardHeader`, `CardBody`, `CardFooter`) work best with `padding="none"` to allow edge-to-edge dividing borders.
+
+## Related
+
+- [Skeleton](../../primitives/Skeleton/README.md)
+- [Modal](../Modal/README.md)

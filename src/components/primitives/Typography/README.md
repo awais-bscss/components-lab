@@ -1,6 +1,6 @@
 # Typography
 
-Typography components for headings and body text that maintain systematic type hierarchy, line heights, font weights, and semantic HTML elements.
+Typography formats titles and body text with predefined type scale tokens.
 
 ## Import
 
@@ -10,56 +10,70 @@ import { Heading, Text } from '@/components/primitives/Typography'
 
 ## Props
 
-### HeadingProps
+### Heading Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `level` | `'h1' \| 'h2' \| 'h3' \| 'h4'` | `'h2'` | Heading HTML tag and corresponding size |
-| `color` | `'default' \| 'muted' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | Semantic text color token |
-| `children` | `ReactNode` | required | Heading content |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `level` | `'h1' \| 'h2' \| 'h3' \| 'h4'` | `'h2'` | No | Semantic heading element and scale size |
+| `color` | `'default' \| 'muted' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | No | Text color token |
+| `children` | `React.ReactNode` | none | Yes | Heading content |
+| `className` | `string` | `''` | No | Additional class names |
 
-### TextProps
+### Text Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'body' \| 'small' \| 'caption' \| 'code' \| 'label'` | `'body'` | Text style variant |
-| `color` | `'default' \| 'muted' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | Semantic text color token |
-| `as` | `'p' \| 'span' \| 'div' \| 'label' \| 'strong' \| 'em'` | `'p'` | Underlying HTML rendering tag |
-| `children` | `ReactNode` | required | Text content |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `variant` | `'body' \| 'small' \| 'caption' \| 'code' \| 'label'` | `'body'` | No | Typography style preset |
+| `color` | `'default' \| 'muted' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | No | Text color token |
+| `as` | `'p' \| 'span' \| 'div' \| 'label' \| 'strong' \| 'em'` | `'p'` | No | Underlying HTML element |
+| `children` | `React.ReactNode` | none | Yes | Text content |
+| `className` | `string` | `''` | No | Additional class names |
+
+Native HTML attributes do not pass through. `className` applies to the rendered element. Exported types: `HeadingProps`, `TextProps`.
 
 ## Usage
 
-### Headings
-
 ```tsx
-<Heading level="h1">Dashboard Overview</Heading>
-<Heading level="h2">Recent Transactions</Heading>
-<Heading level="h3" color="primary">Active Sessions</Heading>
+<Heading level="h1">Dashboard overview</Heading>
 ```
 
-### Body and Small Text
-
 ```tsx
-<Text variant="body">
-  Standard body paragraph with proportional line-height.
-</Text>
-
-<Text variant="small" color="muted">
-  Published on October 15, 2026
-</Text>
+<Heading level="h3" color="primary">Active projects</Heading>
 ```
 
-### Code and Label
+```tsx
+<Text variant="body">Body copy rendered in 14px size.</Text>
+```
 
 ```tsx
-<Text variant="code">npm install</Text>
-<Text variant="label">User Profile</Text>
+<Text variant="code">npm run dev</Text>
 ```
 
 ## Accessibility
 
-- `Heading` dynamically renders semantic `<h1>`, `<h2>`, `<h3>`, or `<h4>` elements, allowing proper heading nesting for screen reader landmark navigation.
-- `Text` supports custom rendering tags (`p`, `span`, `strong`, `em`, `label`) using the `as` prop to preserve correct semantic structure.
-- High-contrast text color tokens are mapped according to WCAG 2.1 AA contrast requirements.
+Keyboard interaction:
+
+| Key | Action |
+| --- | --- |
+| None | Typography components are non-interactive presentation elements |
+
+- Renders semantic heading tags `<h1>`, `<h2>`, `<h3>`, and `<h4>`.
+- Renders semantic text tags `<p>`, `<span>`, `<code>`, and `<label>`.
+
+## Design tokens
+
+- `text-foreground`
+- `text-muted-foreground`
+- `text-primary`
+- `text-success-soft-foreground`
+- `text-warning-soft-foreground`
+- `text-danger-soft-foreground`
+- `bg-surface-muted`, `border-border`
+
+## Notes and limitations
+
+- `color` prop is ignored when `variant="code"` to preserve code token contrast.
+
+## Related
+
+- [Divider](../Divider/README.md)
