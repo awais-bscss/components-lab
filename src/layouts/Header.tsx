@@ -28,7 +28,9 @@ export function Header({ onMenuClick }: HeaderProps) {
       </div>
       <div className="flex items-center gap-2.5">
         <a
-          href="./storybook/"
+          href="https://awais-bscss.github.io/components-lab/storybook/"
+          target="_blank"
+          rel="noreferrer"
           className="h-[34px] px-3 inline-flex items-center justify-center rounded-md border border-border bg-surface text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
         >
           Storybook

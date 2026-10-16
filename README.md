@@ -7,15 +7,16 @@ Muhammad Awais. Month 3 monthly project, Frontend Engineering Internship.
 ## Overview
 
 - Stack: React 19, TypeScript 6, Vite 8, Tailwind CSS 4, and Storybook 10.
-- Component count: 17 components across primitives, composites, and interactive tiers.
+- Component count: 18 components across primitives, composites, and interactive tiers.
 - Themes: light and dark color schemes defined in src/index.css and controlled via ThemeProvider.
 - Type safety: strict TypeScript with zero any in component props.
-- Storybook: isolated component stories with accessibility and documentation addons.
+- Storybook: isolated component stories with accessibility and documentation addons, featuring instant zero-flicker theme synchronization.
 
 ## Deployments
 
-- Live application: https://awais-bscss.github.io/components-lab/
-- Storybook docs: https://awais-bscss.github.io/components-lab/storybook/
+- [Live Application](https://awais-bscss.github.io/components-lab/): Interactive showcase and documentation for all components.
+- [Storybook Documentation](https://awais-bscss.github.io/components-lab/storybook/): Component workshop with isolated stories, documentation, and controls.
+- [GitHub Actions Workflow](.github/workflows/deploy.yml): Automated CI/CD pipeline building and publishing both the application and Storybook to GitHub Pages on every push to main.
 
 ## Tech stack
 
@@ -73,6 +74,7 @@ npm run storybook
 | --- | --- |
 | [Alert](src/components/composites/Alert/README.md) | Feedback box with status roles and dismiss button |
 | [Card](src/components/composites/Card/README.md) | Compound container with Header, Body, and Footer |
+| [EmptyState](src/components/composites/EmptyState/README.md) | Placeholder view for zero-data states, cleared filters, or onboarding guidance |
 | [Modal](src/components/composites/Modal/README.md) | Dialog rendered in portal with focus trap and scroll lock |
 | [Progress](src/components/composites/Progress/README.md) | Progressbar with determinate and indeterminate modes |
 | [Tooltip](src/components/composites/Tooltip/README.md) | Hover and focus popup positioned around an element |
@@ -99,7 +101,11 @@ npm run storybook
 
 ## Architecture summaries
 
-Theming uses CSS variables in src/index.css under :root and .dark, exposed through Tailwind @theme inline. The palette uses slate neutrals with indigo primary accents.
+Theming uses CSS variables in src/index.css under :root and .dark, exposed through Tailwind @theme inline. The palette uses neutral dark and light surfaces with indigo primary accents, maintaining minimum 4.5:1 contrast ratios across all states.
+
+Storybook documentation theme synchronizes with the document root class via useSyncExternalStore in .storybook/DocsContainer.tsx, ensuring instantaneous theme switching without render lag or background flicker.
+
+Composites demonstrate compound patterns integrating multiple primitives, such as Card variants (default, elevated, outlined, ghost) with embedded Avatars, Badges, Chips, and Progress indicators.
 
 Typography scale uses Inter font with base size text-sm (14px) and secondary text-xs (12px) for high density.
 
@@ -108,6 +114,8 @@ Accessibility follows WAI-ARIA patterns with skip links, visible focus rings, ar
 ## Key technical decisions
 
 - Tailwind CSS v4 @theme inline: Centralizes semantic tokens in CSS variables without a JavaScript configuration file.
+- Relative asset paths (base: './'): Configured in vite.config.ts to support static hosting in repository subpaths like GitHub Pages.
+- GitHub Actions CI/CD: Automated deployment workflow in .github/workflows/deploy.yml building both the showcase app and static Storybook docs.
 - Hash routing: Keeps the showcase navigable without server routing configuration on static hosts.
 - Centralized icon module: Re-exports icons from lucide-react with default w-4 h-4 sizing to keep components consistent.
 - Compound components for Card: Separates header, body, and footer so consumers can customize layout without extra props.
