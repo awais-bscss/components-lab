@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Preview, Decorator } from '@storybook/react-vite';
 import '../src/index.css';
+import './docs.css';
+import { DocsContainer } from './DocsContainer';
 
 const withTheme: Decorator = (Story, context) => {
   const theme = context.globals['theme'] ?? 'light';
@@ -26,6 +28,12 @@ const preview: Preview = {
   },
   decorators: [withTheme],
   parameters: {
+    backgrounds: {
+      disable: true,
+    },
+    docs: {
+      container: DocsContainer,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

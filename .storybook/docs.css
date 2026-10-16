@@ -1,0 +1,27 @@
+#storybook-docs,
+.sbdocs,
+.sbdocs-wrapper,
+.sbdocs-content {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.sbdocs-title,
+.sbdocs-subtitle,
+.sbdocs-h1,
+.sbdocs-h2,
+.sbdocs-h3,
+.sbdocs-h4,
+.sbdocs-h5,
+.sbdocs-h6,
+.sbdocs-p,
+.sbdocs-li {
+  color: var(--foreground) !important;
+}
+
+.docs-story,
+.sbdocs-preview {
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
