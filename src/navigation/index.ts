@@ -17,12 +17,13 @@ import {
   TableIcon,
   AccordionIcon,
   TabsIcon,
+  EmptyStateIcon,
 } from '../icons'
 
 export type PageId =
   | 'button' | 'badge' | 'input' | 'typography'
   | 'avatar' | 'divider' | 'spinner' | 'skeleton' | 'chip'
-  | 'card' | 'alert' | 'modal' | 'tooltip' | 'progress'
+  | 'card' | 'alert' | 'modal' | 'tooltip' | 'progress' | 'emptystate'
   | 'datatable' | 'accordion' | 'tabs'
 
 export interface NavItem {
@@ -54,11 +55,12 @@ export const NAV: NavSection[] = [
   {
     label: 'Composites',
     items: [
-      { id: 'card',     label: 'Card',     icon: BoardIcon },
-      { id: 'alert',    label: 'Alert',    icon: WarningIcon },
-      { id: 'modal',    label: 'Modal',    icon: DialogIcon },
-      { id: 'tooltip',  label: 'Tooltip',  icon: MessageIcon },
-      { id: 'progress', label: 'Progress', icon: ProgressIcon },
+      { id: 'card',       label: 'Card',       icon: BoardIcon },
+      { id: 'alert',      label: 'Alert',      icon: WarningIcon },
+      { id: 'modal',      label: 'Modal',      icon: DialogIcon },
+      { id: 'tooltip',    label: 'Tooltip',    icon: MessageIcon },
+      { id: 'progress',   label: 'Progress',   icon: ProgressIcon },
+      { id: 'emptystate', label: 'EmptyState', icon: EmptyStateIcon },
     ],
   },
   {

@@ -16,6 +16,7 @@ import { AlertPage } from './composites/AlertPage'
 import { ModalPage } from './composites/ModalPage'
 import { TooltipPage } from './composites/TooltipPage'
 import { ProgressPage } from './composites/ProgressPage'
+import { EmptyStatePage } from './composites/EmptyStatePage'
 
 import { DataTablePage } from './interactive/DataTablePage'
 import { AccordionPage } from './interactive/AccordionPage'
@@ -36,6 +37,7 @@ export const PAGE_COMPONENTS: Record<PageId, React.ComponentType> = {
   modal: ModalPage,
   tooltip: TooltipPage,
   progress: ProgressPage,
+  emptystate: EmptyStatePage,
   datatable: DataTablePage,
   accordion: AccordionPage,
   tabs: TabsPage,
@@ -56,6 +58,7 @@ export {
   ModalPage,
   TooltipPage,
   ProgressPage,
+  EmptyStatePage,
   DataTablePage,
   AccordionPage,
   TabsPage,

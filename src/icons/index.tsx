@@ -13,6 +13,7 @@ import {
   Code,
   Eye,
   Folder,
+  Inbox,
   Info,
   LayoutDashboard,
   List,
@@ -205,3 +206,12 @@ export function MenuIcon({ className = 'w-4 h-4', ...props }: IconProps) {
 export function SkeletonIcon({ className = 'w-4 h-4', ...props }: IconProps) {
   return <SquareDashed className={className} {...props} />
 }
+
+export function InboxIcon({ className = 'w-4 h-4', ...props }: IconProps) {
+  return <Inbox className={className} {...props} />
+}
+
+export function EmptyStateIcon({ className = 'w-4 h-4', ...props }: IconProps) {
+  return <Inbox className={className} {...props} />
+}
+
