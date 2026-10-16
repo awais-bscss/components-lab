@@ -33,17 +33,17 @@ const chipVariants = cva(
       {
         variant: 'success',
         selected: true,
-        className: 'bg-success text-white border-success',
+        className: 'bg-success text-primary-foreground border-success',
       },
       {
         variant: 'warning',
         selected: true,
-        className: 'bg-warning text-slate-950 font-medium border-warning',
+        className: 'bg-warning text-primary-foreground font-medium border-warning',
       },
       {
         variant: 'error',
         selected: true,
-        className: 'bg-danger text-white border-danger',
+        className: 'bg-danger text-primary-foreground border-danger',
       },
     ],
     defaultVariants: {

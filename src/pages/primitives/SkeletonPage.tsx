@@ -134,7 +134,7 @@ export function SkeletonPage() {
                   </div>
                 ) : (
                   <div>
-                    <div className="h-32 bg-linear-to-r from-primary/80 to-purple-600 flex items-center justify-center text-white font-medium">
+                    <div className="h-32 bg-linear-to-r from-primary/80 to-primary flex items-center justify-center text-primary-foreground font-medium">
                       Featured Analytics Release
                     </div>
                     <div className="p-5 space-y-2">

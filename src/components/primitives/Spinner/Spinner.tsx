@@ -15,7 +15,7 @@ const spinnerVariants = cva(
       variant: {
         default: 'border-border-strong border-t-foreground',
         primary: 'border-primary/25 border-t-primary',
-        white: 'border-white/30 border-t-white',
+        white: 'border-primary-foreground/30 border-t-primary-foreground',
       },
     },
     defaultVariants: {

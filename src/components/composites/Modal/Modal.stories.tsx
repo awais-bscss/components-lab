@@ -73,7 +73,7 @@ export const WithFooter: Story = {
           <button className="px-3 py-1.5 text-xs rounded border border-border hover:bg-surface-muted transition-colors cursor-pointer">
             Cancel
           </button>
-          <button className="px-3 py-1.5 text-xs rounded bg-danger text-white hover:bg-danger/90 transition-colors cursor-pointer">
+          <button className="px-3 py-1.5 text-xs rounded bg-danger text-primary-foreground hover:bg-danger/90 transition-colors cursor-pointer">
             Confirm delete
           </button>
         </>

@@ -47,15 +47,11 @@ const statusDotSizes: Record<NonNullable<AvatarVariantProps['size']>, string> = 
   xl: 'w-3.5 h-3.5',
 }
 
-const BACKGROUND_COLORS = [
-  'bg-indigo-600',
-  'bg-violet-600',
-  'bg-blue-600',
-  'bg-emerald-600',
-  'bg-amber-600',
-  'bg-rose-600',
-  'bg-cyan-600',
-  'bg-teal-600',
+const BACKGROUND_CLASSES = [
+  'bg-primary text-primary-foreground',
+  'bg-surface-muted text-foreground',
+  'bg-primary-soft text-primary-soft-foreground',
+  'bg-surface border border-border text-foreground',
 ]
 
 function hashString(str: string): number {
@@ -74,9 +70,9 @@ function getInitials(name: string): string {
   return (first + second).toUpperCase() || '?'
 }
 
-function nameColor(name: string): string {
-  const index = hashString(name) % BACKGROUND_COLORS.length
-  return BACKGROUND_COLORS[index] ?? 'bg-indigo-600'
+function nameClass(name: string): string {
+  const index = hashString(name) % BACKGROUND_CLASSES.length
+  return BACKGROUND_CLASSES[index] ?? 'bg-primary text-primary-foreground'
 }
 
 export function Avatar({
@@ -101,8 +97,8 @@ export function Avatar({
         ) : name ? (
           <span
             className={cn(
-              'w-full h-full flex items-center justify-center font-medium text-white',
-              nameColor(name)
+              'w-full h-full flex items-center justify-center font-medium',
+              nameClass(name)
             )}
           >
             {getInitials(name)}
