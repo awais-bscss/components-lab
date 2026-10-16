@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Alert } from './Alert'
-import { Badge, Button, Text } from '@/components/primitives'
+import { Avatar, Badge, Button, Chip, Spinner, Text } from '@/components/primitives'
 import { Progress } from '../Progress/Progress'
 
 const meta: Meta<typeof Alert> = {
@@ -123,3 +123,58 @@ export const ProgressAlertCombination: Story = {
     </div>
   ),
 }
+
+export const LiveSyncAlertCombination: Story = {
+  name: 'Combination: Live Processing with Spinner',
+  render: () => (
+    <div className="w-[480px]">
+      <Alert variant="info" title="Continuous Deployment Pipeline">
+        <div className="space-y-3 mt-1.5">
+          <div className="flex items-center gap-2.5">
+            <Spinner size="sm" variant="primary" />
+            <Text variant="small" color="muted">
+              Running automated accessibility checks on 17 components...
+            </Text>
+            <Badge variant="primary" size="sm">Step 2 of 4</Badge>
+          </div>
+          <div className="flex items-center justify-between pt-1">
+            <Text variant="small" color="muted">Elapsed time: 24s</Text>
+            <div className="flex gap-2">
+              <Button size="sm" variant="ghost">Cancel run</Button>
+              <Button size="sm" variant="outline">View stream</Button>
+            </div>
+          </div>
+        </div>
+      </Alert>
+    </div>
+  ),
+}
+
+export const TeamInviteAlertCombination: Story = {
+  name: 'Combination: Team Invite with Avatar',
+  render: () => (
+    <div className="w-[500px]">
+      <Alert variant="success" title="Workspace Invitation" dismissible>
+        <div className="space-y-3 mt-1.5">
+          <div className="flex items-center gap-3">
+            <Avatar name="Elena Rostova" status="online" size="md" />
+            <div className="flex-1 min-w-0">
+              <Text variant="small">
+                <strong>Elena Rostova</strong> invited you to collaborate on the <strong>Design Systems</strong> team.
+              </Text>
+              <div className="flex gap-1.5 mt-1">
+                <Chip variant="default">Maintainer</Chip>
+                <Badge variant="success" size="sm">Active</Badge>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 pt-1 border-t border-border/50">
+            <Button size="sm" variant="outline">Decline</Button>
+            <Button size="sm" variant="primary">Accept Invitation</Button>
+          </div>
+        </div>
+      </Alert>
+    </div>
+  ),
+}
+

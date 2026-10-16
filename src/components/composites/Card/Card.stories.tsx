@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Card, CardHeader, CardBody, CardFooter } from './Card'
-import { Avatar, AvatarGroup, Badge, Button, Chip, Heading, Text } from '@/components/primitives'
+import { Avatar, AvatarGroup, Badge, Button, Chip, Divider, Heading, Input, Skeleton, Text } from '@/components/primitives'
 import { Progress } from '../Progress/Progress'
+
+const CARD_IMAGE_URL = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
 
 const meta: Meta<typeof Card> = {
   title: 'Composites/Card',
@@ -159,6 +161,76 @@ export const TaskProgressCombination: Story = {
   ),
 }
 
+export const CardSkeletonCombination: Story = {
+  name: 'Combination: Skeleton Loading Card',
+  render: () => (
+    <Card variant="default" className="w-80">
+      <CardHeader>
+        <div className="flex items-center gap-3">
+          <Skeleton variant="circular" width={40} height={40} />
+          <div className="space-y-1.5 flex-1">
+            <Skeleton variant="text" width="60%" />
+            <Skeleton variant="text" width="40%" />
+          </div>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-3">
+        <Skeleton variant="text" width="100%" />
+        <Skeleton variant="text" width="90%" />
+        <div className="flex gap-2 pt-1">
+          <Skeleton variant="rectangular" width={60} height={24} />
+          <Skeleton variant="rectangular" width={75} height={24} />
+          <Skeleton variant="rectangular" width={55} height={24} />
+        </div>
+      </CardBody>
+      <CardFooter className="justify-between">
+        <Skeleton variant="rectangular" width={70} height={32} />
+        <Skeleton variant="rectangular" width={90} height={32} />
+      </CardFooter>
+    </Card>
+  ),
+}
+
+export const BillingCardCombination: Story = {
+  name: 'Combination: Plan and Checkout Card',
+  render: () => (
+    <Card variant="elevated" className="w-80">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div>
+            <Heading level="h4" className="text-base font-semibold">Pro Tier</Heading>
+            <Text variant="small" color="muted">For engineering teams</Text>
+          </div>
+          <Badge variant="primary" size="sm">Popular</Badge>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-4">
+        <div className="flex items-baseline gap-1">
+          <span className="text-2xl font-bold text-foreground">$29</span>
+          <span className="text-xs text-muted-foreground">/ month</span>
+        </div>
+        <Divider label="Discount code" />
+        <Input placeholder="Enter coupon code" size="sm" />
+        <div className="space-y-1.5 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Badge variant="success" size="sm">Included</Badge>
+            <span>Unlimited component tokens</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="success" size="sm">Included</Badge>
+            <span>Storybook CI/CD automated deployment</span>
+          </div>
+        </div>
+      </CardBody>
+      <CardFooter>
+        <Button variant="primary" size="sm" className="w-full">
+          Upgrade to Pro
+        </Button>
+      </CardFooter>
+    </Card>
+  ),
+}
+
 export const WithPadding: Story = {
   name: 'Flat Padded (no sub-parts)',
   args: {
@@ -168,6 +240,44 @@ export const WithPadding: Story = {
   },
   render: (args) => (
     <Card {...args} className="w-80 text-sm text-foreground" />
+  ),
+}
+
+export const ImageCardCombination: Story = {
+  name: 'Combination: Image Cover Card',
+  render: () => (
+    <Card variant="default" className="w-80 overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden bg-surface-muted">
+        <img
+          src={CARD_IMAGE_URL}
+          alt="Component Library Showcase"
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+        <div className="absolute top-2.5 right-2.5">
+          <Badge variant="primary" size="sm">Featured</Badge>
+        </div>
+      </div>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <Heading level="h4" className="text-sm font-semibold truncate">Component Workshop</Heading>
+          <span className="text-xs text-muted-foreground">v1.4.0</span>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-3">
+        <Text variant="small" color="muted">
+          A scalable set of UI primitives and composites engineered for performance, strict type safety, and accessibility.
+        </Text>
+        <div className="flex gap-1.5 flex-wrap">
+          <Chip variant="default">React 19</Chip>
+          <Chip variant="default">Vite 8</Chip>
+          <Chip variant="primary">WCAG AA</Chip>
+        </div>
+      </CardBody>
+      <CardFooter className="justify-between">
+        <Button variant="ghost" size="sm">Preview</Button>
+        <Button variant="primary" size="sm">Explore Docs</Button>
+      </CardFooter>
+    </Card>
   ),
 }
 
@@ -184,3 +294,4 @@ export const AllVariants: Story = {
     </div>
   ),
 }
+

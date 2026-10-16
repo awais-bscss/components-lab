@@ -2,6 +2,8 @@ import { Card, Progress, type CardVariant } from '@/components/composites'
 import { Avatar, AvatarGroup, Badge, Button, Chip, Heading, Text } from '@/components/primitives'
 import { PageHeader, Section } from '@/components/showcase'
 
+const CARD_IMAGE_URL = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
+
 export function CardPage() {
   const cardVariants: CardVariant[] = ['default', 'elevated', 'outlined', 'ghost']
 
@@ -33,6 +35,43 @@ export function CardPage() {
                 </Card.Footer>
               </Card>
             ))}
+          </div>
+        </Section>
+
+        <Section title="Image and Media Card">
+          <div className="max-w-sm">
+            <Card variant="default" className="overflow-hidden">
+              <div className="relative aspect-video w-full overflow-hidden bg-surface-muted">
+                <img
+                  src={CARD_IMAGE_URL}
+                  alt="Component Workshop"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute top-2.5 right-2.5">
+                  <Badge variant="primary" size="sm">Featured</Badge>
+                </div>
+              </div>
+              <Card.Header>
+                <div className="flex items-center justify-between">
+                  <Heading level="h4" className="text-sm font-semibold truncate">Component Workshop</Heading>
+                  <span className="text-xs text-muted-foreground font-mono">v1.4.0</span>
+                </div>
+              </Card.Header>
+              <Card.Body className="space-y-3">
+                <Text variant="small" color="muted">
+                  A scalable set of UI primitives and composites engineered for performance, strict type safety, and accessibility.
+                </Text>
+                <div className="flex gap-1.5 flex-wrap">
+                  <Chip variant="default">React 19</Chip>
+                  <Chip variant="default">Vite 8</Chip>
+                  <Chip variant="primary">WCAG AA</Chip>
+                </div>
+              </Card.Body>
+              <Card.Footer className="justify-between">
+                <Button variant="ghost" size="sm">Preview</Button>
+                <Button variant="primary" size="sm">Explore Docs</Button>
+              </Card.Footer>
+            </Card>
           </div>
         </Section>
 

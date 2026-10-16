@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Modal } from './Modal'
-import { Avatar, Badge, Button, Chip, Input, Text } from '@/components/primitives'
+import { Avatar, Badge, Button, Chip, Divider, Input, Spinner, Text } from '@/components/primitives'
 import { Alert } from '../Alert/Alert'
+import { Progress } from '../Progress/Progress'
 
 const meta: Meta<typeof Modal> = {
   title: 'Composites/Modal',
@@ -113,6 +114,29 @@ export const LargeSize: Story = {
   ),
 }
 
+export const ExtraLargeSize: Story = {
+  name: 'Size: xl',
+  render: () => (
+    <ModalDemo title="System Architecture Overview" size="xl">
+      <div className="space-y-4">
+        <Text variant="small" color="muted">
+          Detailed specification and dependency graph for production component bundles.
+        </Text>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="p-4 rounded-lg bg-surface-muted border border-border space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Primitives</span>
+            <p className="text-sm text-foreground">9 base building blocks with zero external UI dependencies.</p>
+          </div>
+          <div className="p-4 rounded-lg bg-surface-muted border border-border space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Composites</span>
+            <p className="text-sm text-foreground">5 compound components orchestrating accessible behaviors and states.</p>
+          </div>
+        </div>
+      </div>
+    </ModalDemo>
+  ),
+}
+
 export const ProfileFormCombination: Story = {
   name: 'Combination: User Edit Form',
   render: () => (
@@ -140,6 +164,7 @@ export const ProfileFormCombination: Story = {
         </div>
         <Input label="Full Name" defaultValue="Sarah Connor" />
         <Input label="Role Title" defaultValue="Design Systems Engineer" />
+        <Divider label="Access permissions" />
         <div className="space-y-1.5">
           <label className="text-xs font-semibold text-foreground">Assigned Teams</label>
           <div className="flex gap-1.5 flex-wrap">
@@ -147,6 +172,41 @@ export const ProfileFormCombination: Story = {
             <Chip variant="default" selected>Engineering</Chip>
             <Chip variant="default">Product</Chip>
           </div>
+        </div>
+      </div>
+    </ModalDemo>
+  ),
+}
+
+export const DataExportCombination: Story = {
+  name: 'Combination: Data Export Progress',
+  render: () => (
+    <ModalDemo
+      title="Export Component Library"
+      size="md"
+      triggerLabel="Export Data"
+      triggerVariant="outline"
+      footer={
+        <div className="flex justify-between items-center w-full">
+          <div className="flex items-center gap-2">
+            <Spinner size="xs" variant="primary" />
+            <span className="text-xs text-muted-foreground">Generating archive...</span>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm">Pause</Button>
+            <Button variant="primary" size="sm">Download</Button>
+          </div>
+        </div>
+      }
+    >
+      <div className="space-y-4">
+        <Text variant="small" color="muted">
+          Compiling production tokens, TypeScript definitions, and story artifacts.
+        </Text>
+        <Progress value={82} label="Packaging assets" showValue size="md" variant="primary" />
+        <div className="flex items-center justify-between p-3 rounded-lg bg-surface-muted border border-border text-xs">
+          <span className="text-muted-foreground">Files bundled:</span>
+          <Badge variant="success" size="sm">95 / 95 compiled</Badge>
         </div>
       </div>
     </ModalDemo>
@@ -188,3 +248,4 @@ export const NoOverlayClose: Story = {
     </ModalDemo>
   ),
 }
+

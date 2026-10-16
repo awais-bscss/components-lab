@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Tooltip } from './Tooltip'
-import { Avatar, Badge, Button } from '@/components/primitives'
-import { EditIcon, TrashIcon } from '@/icons'
+import { Avatar, Badge, Button, Chip } from '@/components/primitives'
+import { EditIcon, TrashIcon, CodeIcon, SettingsIcon, InfoIcon } from '@/icons'
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Composites/Tooltip',
@@ -154,3 +154,67 @@ export const IconButtonTooltipCombination: Story = {
     </div>
   ),
 }
+
+export const ActionToolbarCombination: Story = {
+  name: 'Combination: Interactive Editor Toolbar',
+  render: () => (
+    <div className="flex items-center gap-2 p-3 bg-surface border border-border rounded-lg shadow-sm">
+      <Tooltip content="Edit component source" position="top">
+        <Button variant="ghost" size="sm" aria-label="Edit source">
+          <EditIcon className="w-4 h-4" />
+        </Button>
+      </Tooltip>
+      <Tooltip content="View generated JSX code" position="top">
+        <Button variant="ghost" size="sm" aria-label="View code">
+          <CodeIcon className="w-4 h-4" />
+        </Button>
+      </Tooltip>
+      <Tooltip content="Configure component props" position="top">
+        <Button variant="ghost" size="sm" aria-label="Settings">
+          <SettingsIcon className="w-4 h-4" />
+        </Button>
+      </Tooltip>
+      <div className="w-px h-5 bg-border mx-1" />
+      <Tooltip content="Filter by TypeScript definition" position="top">
+        <span className="cursor-pointer">
+          <Chip variant="primary" selected>TS 6.0</Chip>
+        </span>
+      </Tooltip>
+      <Tooltip content="Active branch: main" position="top">
+        <span className="cursor-help">
+          <Badge variant="primary" size="sm">production</Badge>
+        </span>
+      </Tooltip>
+    </div>
+  ),
+}
+
+export const StatusMetricsCombination: Story = {
+  name: 'Combination: Live Status Metrics Bar',
+  render: () => (
+    <div className="flex items-center gap-4 p-4 bg-surface-muted rounded-lg border border-border">
+      <Tooltip content="System health: All services operating nominally" position="top">
+        <span className="cursor-help">
+          <Badge variant="success" dot>Healthy</Badge>
+        </span>
+      </Tooltip>
+      <Tooltip content="Storybook documentation synced with 0ms lag" position="top">
+        <span className="cursor-help">
+          <Badge variant="info">Docs: Instant Sync</Badge>
+        </span>
+      </Tooltip>
+      <Tooltip content="Current release coordinator" position="top">
+        <div className="inline-block cursor-pointer">
+          <Avatar name="Muhammad Awais" status="online" size="sm" />
+        </div>
+      </Tooltip>
+      <Tooltip content="Automated deployment triggered by GitHub Actions" position="top">
+        <span className="cursor-pointer inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+          <InfoIcon className="w-3.5 h-3.5" />
+          <span>CI/CD</span>
+        </span>
+      </Tooltip>
+    </div>
+  ),
+}
+

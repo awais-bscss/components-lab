@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Progress } from './Progress'
 import { Card, CardHeader, CardBody, CardFooter } from '../Card/Card'
-import { Badge, Button, Text } from '@/components/primitives'
+import { AvatarGroup, Badge, Button, Chip, Spinner, Text } from '@/components/primitives'
 
 const meta: Meta<typeof Progress> = {
   title: 'Composites/Progress',
@@ -108,3 +108,79 @@ export const InCardCombination: Story = {
     </div>
   ),
 }
+
+export const DownloadQueueCombination: Story = {
+  name: 'Combination: File Download Queue',
+  render: () => (
+    <div className="w-96 p-4 rounded-lg bg-surface border border-border space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-foreground">Active Downloads</span>
+          <Badge variant="primary" size="sm">2 Active</Badge>
+        </div>
+        <Button variant="ghost" size="sm">Pause All</Button>
+      </div>
+
+      <div className="space-y-3">
+        <div className="p-3 rounded-md bg-surface-muted border border-border space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-medium text-foreground">components-bundle.esm.js</span>
+            <Badge variant="success" size="sm">Complete</Badge>
+          </div>
+          <Progress value={100} variant="success" size="xs" />
+        </div>
+
+        <div className="p-3 rounded-md bg-surface-muted border border-border space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-medium text-foreground">storybook-static.tar.gz</span>
+            <span className="text-muted-foreground font-mono">68%</span>
+          </div>
+          <Progress value={68} variant="primary" size="xs" />
+        </div>
+
+        <div className="p-3 rounded-md bg-surface-muted border border-border space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5">
+              <Spinner size="xs" variant="primary" />
+              <span className="font-medium text-foreground">types-definition.d.ts</span>
+            </div>
+            <span className="text-muted-foreground">Queued</span>
+          </div>
+          <Progress variant="primary" size="xs" />
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+export const MilestoneProgressCombination: Story = {
+  name: 'Combination: Sprint Milestone Tracker',
+  render: () => (
+    <div className="w-96 p-4 rounded-lg bg-surface border border-border space-y-3.5">
+      <div className="flex items-center justify-between">
+        <div>
+          <h4 className="text-sm font-semibold text-foreground">Sprint 14: Primitives & Composites</h4>
+          <Text variant="small" color="muted">3 of 4 milestones reached</Text>
+        </div>
+        <Badge variant="success" size="sm" dot>On Track</Badge>
+      </div>
+      <Progress value={75} variant="success" size="sm" showValue label="Overall Sprint Progress" />
+      <div className="flex items-center justify-between pt-2 border-t border-border/60">
+        <div className="flex gap-1.5">
+          <Chip variant="primary" selected>Storybook</Chip>
+          <Chip variant="default" selected>Vite 8</Chip>
+        </div>
+        <AvatarGroup
+          size="xs"
+          max={3}
+          users={[
+            { name: 'Awais' },
+            { name: 'Sarah' },
+            { name: 'David' },
+          ]}
+        />
+      </div>
+    </div>
+  ),
+}
+
