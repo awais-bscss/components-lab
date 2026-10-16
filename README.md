@@ -12,6 +12,11 @@ Muhammad Awais. Month 3 monthly project, Frontend Engineering Internship.
 - Type safety: strict TypeScript with zero any in component props.
 - Storybook: isolated component stories with accessibility and documentation addons.
 
+## Deployments
+
+- Live application: https://awais-bscss.github.io/components-lab/
+- Storybook docs: https://awais-bscss.github.io/components-lab/storybook/
+
 ## Tech stack
 
 | Tool | Purpose | Version |
