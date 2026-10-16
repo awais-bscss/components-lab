@@ -81,7 +81,7 @@ export const WithFooterActions: Story = {
       <CardFooter>
         <span className="flex-1" />
         <button className="text-xs px-3 py-1.5 rounded border border-border hover:bg-surface-muted transition-colors">Cancel</button>
-        <button className="text-xs px-3 py-1.5 rounded bg-danger text-white hover:bg-danger/90 transition-colors">Delete</button>
+        <button className="text-xs px-3 py-1.5 rounded bg-danger text-primary-foreground hover:bg-danger/90 transition-colors">Delete</button>
       </CardFooter>
     </Card>
   ),
