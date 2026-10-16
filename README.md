@@ -50,35 +50,35 @@ npm run storybook
 
 ### Primitives
 
-| Component | Description | Link |
-| --- | --- | --- |
-| [Avatar](src/components/primitives/Avatar/README.md) | User profile image with initials fallback | [Avatar README](src/components/primitives/Avatar/README.md) |
-| [Badge](src/components/primitives/Badge/README.md) | Status indicator with optional dot | [Badge README](src/components/primitives/Badge/README.md) |
-| [Button](src/components/primitives/Button/README.md) | Clickable control with variants, sizes, and loading state | [Button README](src/components/primitives/Button/README.md) |
-| [Chip](src/components/primitives/Chip/README.md) | Interactive compact tag with click and remove actions | [Chip README](src/components/primitives/Chip/README.md) |
-| [Divider](src/components/primitives/Divider/README.md) | Separator line with optional center label | [Divider README](src/components/primitives/Divider/README.md) |
-| [Input](src/components/primitives/Input/README.md) | Text field with label, error, hint, and icon slots | [Input README](src/components/primitives/Input/README.md) |
-| [Skeleton](src/components/primitives/Skeleton/README.md) | Placeholder element with pulse and wave shimmer animations | [Skeleton README](src/components/primitives/Skeleton/README.md) |
-| [Spinner](src/components/primitives/Spinner/README.md) | Rotating loading indicator with status role | [Spinner README](src/components/primitives/Spinner/README.md) |
-| [Typography](src/components/primitives/Typography/README.md) | Heading and Text components with density scale | [Typography README](src/components/primitives/Typography/README.md) |
+| Component | Description |
+| --- | --- |
+| [Avatar](src/components/primitives/Avatar/README.md) | User profile image with initials fallback |
+| [Badge](src/components/primitives/Badge/README.md) | Status indicator with optional dot |
+| [Button](src/components/primitives/Button/README.md) | Clickable control with variants, sizes, and loading state |
+| [Chip](src/components/primitives/Chip/README.md) | Interactive compact tag with click and remove actions |
+| [Divider](src/components/primitives/Divider/README.md) | Separator line with optional center label |
+| [Input](src/components/primitives/Input/README.md) | Text field with label, error, hint, and icon slots |
+| [Skeleton](src/components/primitives/Skeleton/README.md) | Placeholder element with pulse and wave shimmer animations |
+| [Spinner](src/components/primitives/Spinner/README.md) | Rotating loading indicator with status role |
+| [Typography](src/components/primitives/Typography/README.md) | Heading and Text components with density scale |
 
 ### Composites
 
-| Component | Description | Link |
-| --- | --- | --- |
-| [Alert](src/components/composites/Alert/README.md) | Feedback box with status roles and dismiss button | [Alert README](src/components/composites/Alert/README.md) |
-| [Card](src/components/composites/Card/README.md) | Compound container with Header, Body, and Footer | [Card README](src/components/composites/Card/README.md) |
-| [Modal](src/components/composites/Modal/README.md) | Dialog rendered in portal with focus trap and scroll lock | [Modal README](src/components/composites/Modal/README.md) |
-| [Progress](src/components/composites/Progress/README.md) | Progressbar with determinate and indeterminate modes | [Progress README](src/components/composites/Progress/README.md) |
-| [Tooltip](src/components/composites/Tooltip/README.md) | Hover and focus popup positioned around an element | [Tooltip README](src/components/composites/Tooltip/README.md) |
+| Component | Description |
+| --- | --- |
+| [Alert](src/components/composites/Alert/README.md) | Feedback box with status roles and dismiss button |
+| [Card](src/components/composites/Card/README.md) | Compound container with Header, Body, and Footer |
+| [Modal](src/components/composites/Modal/README.md) | Dialog rendered in portal with focus trap and scroll lock |
+| [Progress](src/components/composites/Progress/README.md) | Progressbar with determinate and indeterminate modes |
+| [Tooltip](src/components/composites/Tooltip/README.md) | Hover and focus popup positioned around an element |
 
 ### Interactive
 
-| Component | Description | Link |
-| --- | --- | --- |
-| [Accordion](src/components/interactive/Accordion/README.md) | Collapsible disclosure panels with arrow key navigation | [Accordion README](src/components/interactive/Accordion/README.md) |
-| [DataTable](src/components/interactive/DataTable/README.md) | Typed table with column sorting and search filter | [DataTable README](src/components/interactive/DataTable/README.md) |
-| [Tabs](src/components/interactive/Tabs/README.md) | Tabbed interface with WAI-ARIA roving tabindex | [Tabs README](src/components/interactive/Tabs/README.md) |
+| Component | Description |
+| --- | --- |
+| [Accordion](src/components/interactive/Accordion/README.md) | Collapsible disclosure panels with arrow key navigation |
+| [DataTable](src/components/interactive/DataTable/README.md) | Typed table with column sorting and search filter |
+| [Tabs](src/components/interactive/Tabs/README.md) | Tabbed interface with WAI-ARIA roving tabindex |
 
 ## Project structure
 
